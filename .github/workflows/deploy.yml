@@ -21,12 +21,12 @@ jobs:
       - name: Run Schema Changes
         run: |
           schemachange deploy \
-            --account ${{ secrets.SF_ACCOUNT }} \
-            --user ${{ secrets.SF_USERNAME }} \
-            --password ${{ secrets.SF_PASSWORD }} \
-            --role ${{ secrets.SF_ROLE }} \
-            --warehouse ${{ secrets.SF_WAREHOUSE }} \
-            --database ${{ secrets.SF_DATABASE }} \
-            --schema DEV \
-            --change-history-table CHANGE_HISTORY \
-            --root-folder migrations
+            -a ${{ secrets.SF_ACCOUNT }} \
+            -u ${{ secrets.SF_USERNAME }} \
+            -p ${{ secrets.SF_PASSWORD }} \
+            -r ${{ secrets.SF_ROLE }} \
+            -w ${{ secrets.SF_WAREHOUSE }} \
+            -d ${{ secrets.SF_DATABASE }} \
+            -s DEV \
+            -c CHANGE_HISTORY \
+            -f migrations
