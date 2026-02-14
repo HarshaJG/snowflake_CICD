@@ -30,4 +30,5 @@ jobs:
             -d ${{ secrets.SF_DATABASE }} \
             -s DEV \
             -c CHANGE_HISTORY \
-            -f migrations
+            -f migrations \
+            --schemachange-create-change-history-table
