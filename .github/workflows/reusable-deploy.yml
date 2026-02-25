@@ -37,7 +37,7 @@ on:
         required: true
       SF_PASSWORD:
         required: false
-      SF_PRIVATE_KEY:
+      SNOWFLAKE_PRIVATE_KEY_BASE64:
         required: false
       SF_PRIVATE_KEY_PASSPHRASE:
         required: false
@@ -71,10 +71,14 @@ jobs:
         if: ${{ inputs.use_key_pair_auth }}
         run: |
           mkdir -p ~/.ssh
-          cat > ~/.ssh/snowflake_key.pem <<'PRIVATE_KEY_EOF'
-          ${{ secrets.SF_PRIVATE_KEY }}
-          PRIVATE_KEY_EOF
+          echo "${{ secrets.SNOWFLAKE_PRIVATE_KEY_BASE64 }}" | base64 -d > ~/.ssh/snowflake_key.pem
           chmod 600 ~/.ssh/snowflake_key.pem
+          echo "Private key file created and decoded from base64"
+          echo "First line:"
+          head -n 1 ~/.ssh/snowflake_key.pem
+          echo "Last line:"
+          tail -n 1 ~/.ssh/snowflake_key.pem
+          echo "Total lines: $(wc -l < ~/.ssh/snowflake_key.pem)"
 
       - name: Test Snowflake Connectivity
         env:
