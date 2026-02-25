@@ -17,7 +17,7 @@ jobs:
     secrets:
       SF_ACCOUNT: ${{ secrets.SF_ACCOUNT }}
       SF_USERNAME: ${{ secrets.SF_USERNAME }}
-      SF_PRIVATE_KEY: ${{ secrets.SF_PRIVATE_KEY }}
+      SNOWFLAKE_PRIVATE_KEY_BASE64: ${{ secrets.SNOWFLAKE_PRIVATE_KEY_BASE64 }}
       SF_PRIVATE_KEY_PASSPHRASE: ${{ secrets.SF_PRIVATE_KEY_PASSPHRASE }}
       SF_ROLE: ${{ secrets.SF_ROLE }}
       SF_WAREHOUSE: ${{ secrets.SF_WAREHOUSE }}
