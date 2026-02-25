@@ -79,6 +79,9 @@ jobs:
           echo "Last line:"
           tail -n 1 ~/.ssh/snowflake_key.pem
           echo "Total lines: $(wc -l < ~/.ssh/snowflake_key.pem)"
+          echo ""
+          echo "Generating public key fingerprint from private key..."
+          openssl rsa -pubout -in ~/.ssh/snowflake_key.pem -passin pass:"${{ secrets.SF_PRIVATE_KEY_PASSPHRASE }}" 2>/dev/null | openssl dgst -sha256 -binary | openssl enc -base64 || echo "Could not generate fingerprint (key may not be encrypted)"
 
       - name: Test Snowflake Connectivity
         env:
@@ -102,7 +105,7 @@ jobs:
           try:
               conn_params = {
                   'account': '${{ secrets.SF_ACCOUNT }}',
-                  'user': '${{ secrets.SF_USERNAME }}',
+                  'user': '${{ secrets.SF_USERNAME }}'.upper(),
                   'role': '${{ secrets.SF_ROLE }}',
                   'warehouse': '${{ secrets.SF_WAREHOUSE }}',
                   'database': '${{ secrets.SF_DATABASE }}',
